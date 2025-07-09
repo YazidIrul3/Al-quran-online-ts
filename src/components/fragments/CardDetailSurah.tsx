@@ -1,3 +1,6 @@
+import { useActiveAudio } from "@/hooks/useActiveAudio";
+import { useRef, useState } from "react";
+
 type Props = {
   data: data;
 };
@@ -40,12 +43,75 @@ type data = {
 };
 
 const CardDetailSurah: React.FC<Props> = ({ data }: Props) => {
+  const audiORef = useRef<any>(null);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const { currentAudio, setCurrentAudio } = useActiveAudio();
+
+  const handlePlayAudio = (audioEl: HTMLAudioElement) => {
+    setCurrentAudio(audioEl);
+
+    if (currentAudio !== audioEl) {
+      setCurrentAudio(audioEl);
+      audioEl.play();
+      currentAudio?.pause();
+    } else {
+      audioEl.play();
+    }
+  };
+  
+  console.log(currentAudio);
+
   return (
     <div className="flex flex-col gap-4 p-4">
       <div className=" text-green-700 font-bold bg-green-200 rounded-full px-3 py-1 w-fit h-fit">
         <h1>{data?.number?.inSurah}</h1>
+
+        <audio
+          onEnded={() => setIsPlaying(false)}
+          ref={audiORef}
+          src={data?.audio?.primary}
+        />
       </div>
       <div className="flex flex-col gap-5">
+        <div className=" flex flex-row items-center justify-end">
+          {!isPlaying ? (
+            <button
+              type="button"
+              onClick={() => {
+                handlePlayAudio(audiORef.current); // 🔥 Ini yang kontrol audio global
+                setIsPlaying(true);
+              }}
+              className=" w-[30px] h-[30px]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                className="bi bi-play"
+                viewBox="0 0 16 16"
+              >
+                <path d="M10.804 8 5 4.633v6.734zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696z" />
+              </svg>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => {
+                audiORef.current.pause();
+                setIsPlaying(false);
+              }}
+              className=" w-[30px] h-[30px]"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                className="bi bi-pause"
+                viewBox="0 0 16 16"
+              >
+                <path d="M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5m4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5" />
+              </svg>
+            </button>
+          )}
+        </div>
         <h1 className="flex text-3xl font-bold justify-end text-right">
           {data.text?.arab}
         </h1>
