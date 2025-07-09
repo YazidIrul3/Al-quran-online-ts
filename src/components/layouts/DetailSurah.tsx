@@ -3,6 +3,7 @@ import CardDetailSurah from "../fragments/CardDetailSurah";
 import React, { useState } from "react";
 import Spinner from "../fragments/Spinner";
 import Link from "next/link";
+import LastReadFragment from "../fragments/LastReadFragment";
 
 type Props = {
   no: string;
@@ -81,7 +82,6 @@ interface Ayat {
 const DetailSurah: React.FC<Props> = ({ no }) => {
   const { data: surah, isLoading } = useGetQuran<Data>(`surah/${no}`);
   const [totalShowSurah, setTotalShowSurah] = useState<number>(20);
-
   const ayat = surah?.data?.verses?.slice(0, totalShowSurah);
 
   return (
@@ -148,7 +148,13 @@ const DetailSurah: React.FC<Props> = ({ no }) => {
           <main className=" flex flex-col gap-4">
             <div className="mt-5 gap-10 flex flex-col">
               {ayat?.map((item, i) => {
-                return <CardDetailSurah key={i} data={item} />;
+                return (
+                  <CardDetailSurah
+                    key={i}
+                    data={item}
+                    surah={surah?.data ? surah?.data : null}
+                  />
+                );
               })}
             </div>
 
@@ -166,81 +172,7 @@ const DetailSurah: React.FC<Props> = ({ no }) => {
                 )
               : null}
           </main>
-
-          <div className=" sticky bottom-0 left-0 right-0 bg-slate-50 shadow-md flex flex-col gap-3 p-2">
-            <div className=" flex flex-row items-center gap-4 justify-between">
-              <div className=" flex flex-row items-center gap-4">
-                <div className=" w-[50px] h-[50px] rounded-lg bg-slate-300"></div>
-
-                <div>
-                  <h1 className="text-xl text-green-700 font-bold">
-                    {surah?.data?.name?.transliteration?.id}
-                  </h1>
-                  <h2 className="text-sm font-normal text-slate-800">
-                    {surah?.data?.name.translation.id}
-                  </h2>
-                </div>
-              </div>
-
-              <div className=" flex flex-row items-center gap-4">
-                <button className="text-gray-600 hover:text-green-600">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                    />
-                  </svg>
-                </button>
-                <button
-                  onClick={() => document.getElementById("audioId")?.onplay}
-                  className="bg-green-600 text-white p-2 rounded-full hover:bg-green-700"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15.536a5 5 0 010-7.072m-2.828 9.9a9 9 0 010-12.728"
-                    />
-                  </svg>
-                </button>
-                <button className="text-gray-600 hover:text-green-600">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-
-            {/* <div className=" w-full">
-              <audio id="audioId" className=" " controls src={surah?.data?.} />
-            </div> */}
-          </div>
+          <LastReadFragment />
         </div>
       )}
     </section>
