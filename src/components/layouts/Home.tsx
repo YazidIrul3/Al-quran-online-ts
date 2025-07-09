@@ -3,6 +3,7 @@ import LinkHeader from "../elements/LinkHeader";
 import React, { useState } from "react";
 import { useGetQuran } from "@/feutures/quran/getQuran";
 import Spinner from "../fragments/Spinner";
+import LastReadFragment from "../fragments/LastReadFragment";
 
 type Props = {
   data: Surah[];
@@ -51,7 +52,7 @@ const HomeLayout = () => {
   return (
     <div>
       {!isLoading ? (
-        <section className=" w-full mx-auto">
+        <section className=" w-full mx-auto ">
           <div className=" bg-green-700 text-slate-50 flex lg:flex-row flex-col gap-3 items-center justify-around py-4">
             <div className=" flex flex-row items-center gap-3">
               <div className=" w-[50px] h-[50px] bg-slate-300 rounded-full"></div>
@@ -77,18 +78,20 @@ const HomeLayout = () => {
             </div>
           </div>
           <div className="scrollbar-none font-bold text-lg my-5 mx-auto items-center sm:justify-center w-full flex flex-row  gap-5  overflow-x-scroll">
-            <LinkHeader href="/detail/surah/36">Yasin</LinkHeader>
-            <LinkHeader href="/detail/surah/56">Al-Waqiah</LinkHeader>
-            <LinkHeader href="/detail/surah/67">Al-Mulk</LinkHeader>
-            <LinkHeader href="/detail/surah/18">Al-Kahfi</LinkHeader>
-            <LinkHeader href="/detail/surah/55">Al-Rahman</LinkHeader>
+            <LinkHeader href="/surah/36">Yasin</LinkHeader>
+            <LinkHeader href="/surah/56">Al-Waqiah</LinkHeader>
+            <LinkHeader href="/surah/67">Al-Mulk</LinkHeader>
+            <LinkHeader href="/surah/18">Al-Kahfi</LinkHeader>
+            <LinkHeader href="/surah/55">Al-Rahman</LinkHeader>
           </div>
-          <div className="   bg-slate-50 shadow-sm">
-            <div className="  max-w-lg  w-lg mx-auto min-w-lg flex flex-col justify-center items-center  bg-slate-50 shadow-sm">
+          <div className="   bg-slate-50 shadow-sm max-w-lg  w-lg mx-auto min-w-lg relative">
+            <div className="   flex flex-col justify-center items-center  bg-slate-50 shadow-sm">
               {surah?.map((item, i) => {
                 return <Card key={i} no={i + 1} PropsCard={item} />;
               })}
             </div>
+
+            <LastReadFragment />
           </div>
         </section>
       ) : (
