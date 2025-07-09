@@ -1,8 +1,6 @@
 import Card from "@/components/fragments/Card";
 import LinkHeader from "../elements/LinkHeader";
-import { useState } from "react";
-import { log } from "console";
-import { Interface } from "readline";
+import React, { useState } from "react";
 import { useGetQuran } from "@/feutures/quran/getQuran";
 import Spinner from "../fragments/Spinner";
 
@@ -40,8 +38,8 @@ const HomeLayout = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const { data, isLoading } = useGetQuran<Props>("surah");
 
-  const handleOnChange = (e: any) => {
-    const { name, value } = e.target;
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
 
     setSearchValue(value);
   };

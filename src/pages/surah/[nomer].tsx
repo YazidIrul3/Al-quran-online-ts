@@ -1,10 +1,9 @@
 import DetailSurah from "@/components/layouts/DetailSurah";
-import { useGetQuran } from "@/feutures/quran/getQuran";
 
 const Detail = ({ params }: { params: { nomer: string } }) => {
   return (
     <div>
-      <DetailSurah  no={params.nomer} />
+      <DetailSurah no={params.nomer} />
     </div>
   );
 };

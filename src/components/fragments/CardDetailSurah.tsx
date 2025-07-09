@@ -38,12 +38,13 @@ type data = {
   tafsir: {
     id: {
       short: string;
+      long: string;
     };
   };
 };
 
 const CardDetailSurah: React.FC<Props> = ({ data }: Props) => {
-  const audiORef = useRef<any>(null);
+  const audiORef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const { currentAudio, setCurrentAudio } = useActiveAudio();
 
@@ -58,7 +59,7 @@ const CardDetailSurah: React.FC<Props> = ({ data }: Props) => {
       audioEl.play();
     }
   };
-  
+
   console.log(currentAudio);
 
   return (
@@ -78,8 +79,10 @@ const CardDetailSurah: React.FC<Props> = ({ data }: Props) => {
             <button
               type="button"
               onClick={() => {
-                handlePlayAudio(audiORef.current); // 🔥 Ini yang kontrol audio global
-                setIsPlaying(true);
+                if (audiORef.current) {
+                  handlePlayAudio(audiORef.current);
+                  setIsPlaying(true);
+                }
               }}
               className=" w-[30px] h-[30px]"
             >
@@ -96,8 +99,10 @@ const CardDetailSurah: React.FC<Props> = ({ data }: Props) => {
             <button
               type="button"
               onClick={() => {
-                audiORef.current.pause();
-                setIsPlaying(false);
+                if (audiORef.current) {
+                  audiORef.current.pause();
+                  setIsPlaying(false);
+                }
               }}
               className=" w-[30px] h-[30px]"
             >
@@ -112,13 +117,16 @@ const CardDetailSurah: React.FC<Props> = ({ data }: Props) => {
             </button>
           )}
         </div>
-        <h1 className="flex text-3xl font-bold justify-end text-right">
-          {data.text?.arab}
-        </h1>
-        <p
-          className=" font-extralight text-sm text-justify"
-          dangerouslySetInnerHTML={{ __html: data.text?.transliteration?.en }}
-        ></p>
+        <div className=" flex flex-col justify-end items-end gap-2">
+          <h1
+            className=" text-3xl font-bold  text-right"
+            dangerouslySetInnerHTML={{ __html: data.text?.arab }}
+          ></h1>
+          <p
+            className=" font-extralight text-sm text-justify "
+            dangerouslySetInnerHTML={{ __html: data.text?.transliteration?.en }}
+          ></p>
+        </div>
       </div>
 
       <div className="text-slate-700 flex flex-col gap-1 ">
@@ -130,7 +138,7 @@ const CardDetailSurah: React.FC<Props> = ({ data }: Props) => {
         <div className=" flex flex-col gap-2 bg-slate-100  p-2">
           <h2 className=" text-blue-700 font-bold text-sm">Tafsir :</h2>
           <p className=" text-xs text-justify text-blue-700">
-            {data?.tafsir?.id?.short}
+            {data?.tafsir?.id?.long}
           </p>
         </div>
       </div>

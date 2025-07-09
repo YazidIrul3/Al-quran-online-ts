@@ -32,7 +32,7 @@ type PropsCard = {
 const Card = ({ PropsCard, no }: Props) => {
   return (
     <Link
-      href={`/detail/surah/${PropsCard.number}`}
+      href={`/surah/${PropsCard.number}`}
       className=" hover:duration-75 hover:bg-green-100 border hover:border-green-600 mx-auto min-h-full min-w-full w-full bg-white p-4 gap-5 shadow-sm rounded-xl flex items-center h-24"
     >
       <div className="flex items-center gap-4 w-11/12">
