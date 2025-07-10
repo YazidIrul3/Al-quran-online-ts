@@ -161,6 +161,7 @@ const CardDetailSurah: React.FC<Props> = ({ data, surah }: Props) => {
                 arti: surah?.name?.translation.id
                   ? surah?.name?.translation.id
                   : "",
+                ayat: data?.number?.inSurah ? data?.number?.inSurah : 0,
               })
             }
             className=" w-[24px] h-[24px] relative"

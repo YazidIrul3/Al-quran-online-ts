@@ -13,6 +13,7 @@ interface Surah {
   nameArab: string;
   surahName: string;
   arti: string;
+  ayat: number;
 }
 
 export const useLastRead = create<LastRead>()(
@@ -25,12 +26,13 @@ export const useLastRead = create<LastRead>()(
         nameArab: "",
         surahName: "",
         arti: "",
+        ayat: 0,
       },
       setLastRead: (newSurah) => set({ surah: newSurah }),
     }),
     {
       name: "last-read", // name of the item in the storage (must be unique)
-      storage: createJSONStorage(() => sessionStorage), // (optional) by default, 'localStorage' is used
+      storage: createJSONStorage(() => localStorage), // (optional) by default, 'localStorage' is used
     }
   )
 );

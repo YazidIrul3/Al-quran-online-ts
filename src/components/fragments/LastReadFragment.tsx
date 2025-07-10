@@ -5,20 +5,38 @@ const LastReadFragment = () => {
   const { surah: lastRead } = useLastRead();
 
   return (
-    <div className=" sticky bottom-0 left-0 right-0 bg-slate-50 shadow-md flex flex-col gap-3 p-2">
+    <div
+      className={`${
+        lastRead?.audio == "" ||
+        lastRead?.arti == "" ||
+        lastRead?.ayat == 0 ||
+        lastRead?.juz == 0 ||
+        lastRead?.nameArab == "" ||
+        lastRead?.surahName == "" ||
+        lastRead?.inSurah == 0
+          ? "hidden"
+          : "sticky"
+      }  bottom-0 left-0 right-0 bg-slate-50 shadow-md flex flex-col gap-3 p-2`}
+    >
       <div className=" flex flex-row items-center gap-4 justify-between">
         <div className=" flex flex-row items-center gap-4">
           <div className=" w-[50px] h-[50px] rounded-lg bg-slate-300"></div>
 
           <div>
-            <Link
-              href={`/surah/${lastRead?.inSurah}`}
-              className=" hover:underline"
-            >
-              <h1 className="text-xl text-green-700 font-bold">
-                {lastRead?.surahName}
-              </h1>
-            </Link>
+            <div className=" flex flex-row items-center gap-2 font-bold">
+              <Link
+                href={`/surah/${lastRead?.inSurah}`}
+                className=" hover:underline"
+              >
+                <h1 className="text-xl text-green-700 font-bold">
+                  {lastRead?.surahName}
+                </h1>
+              </Link>
+
+              <h2 className="">{"-"}</h2>
+
+              <h6 className="text-sm text-slate-900 capitalize">{`Ayat ${lastRead?.ayat}`}</h6>
+            </div>
             <h2 className="text-sm font-normal text-slate-800">
               {lastRead?.arti}
             </h2>
