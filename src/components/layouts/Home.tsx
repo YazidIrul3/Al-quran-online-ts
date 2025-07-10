@@ -1,9 +1,10 @@
 import Card from "@/components/fragments/Card";
 import LinkHeader from "../elements/LinkHeader";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useGetQuran } from "@/feutures/quran/getQuran";
 import Spinner from "../fragments/Spinner";
 import LastReadFragment from "../fragments/LastReadFragment";
+import Image from "next/image";
 
 type Props = {
   data: Surah[];
@@ -55,7 +56,15 @@ const HomeLayout = () => {
         <section className=" w-full mx-auto ">
           <div className=" bg-green-700 text-slate-50 flex lg:flex-row flex-col gap-3 items-center justify-around py-4">
             <div className=" flex flex-row items-center gap-3">
-              <div className=" w-[50px] h-[50px] bg-slate-300 rounded-full"></div>
+              <div className=" w-[50px] h-[50px] rounded-full">
+                <Image
+                  className=""
+                  src={"/quran.png"}
+                  width={100}
+                  height={100}
+                  alt="quran-img"
+                />
+              </div>
               <div className=" flex flex-col ">
                 <h1 className=" font-bold text-2xl">Al-Quran Online</h1>
                 <p className=" text-sm">
@@ -77,15 +86,23 @@ const HomeLayout = () => {
               </div>
             </div>
           </div>
-          <div className="scrollbar-none font-bold text-lg my-5 mx-auto items-center sm:justify-center w-full flex flex-row  gap-5  overflow-x-scroll">
+          <div className=" px-2 scrollbar-none font-bold text-lg my-5 mx-auto items-center sm:justify-center w-full flex flex-row  gap-5  overflow-x-scroll">
             <LinkHeader href="/surah/36">Yasin</LinkHeader>
             <LinkHeader href="/surah/56">Al-Waqiah</LinkHeader>
             <LinkHeader href="/surah/67">Al-Mulk</LinkHeader>
             <LinkHeader href="/surah/18">Al-Kahfi</LinkHeader>
             <LinkHeader href="/surah/55">Al-Rahman</LinkHeader>
           </div>
-          <div className="   bg-slate-50 shadow-sm max-w-lg  w-lg mx-auto min-w-lg relative">
-            <div className="   flex flex-col justify-center items-center  bg-slate-50 shadow-sm">
+          <div className=" px-3  bg-slate-50 shadow-sm max-w-lg  w-lg mx-auto min-w-lg relative">
+            <div className=" flex flex-row items-center mb-4 gap-3">
+              <div className=" flex flex-col">
+                <button type="button" className=" text-[15px]">
+                  Surah
+                </button>
+                <div className=" h-1 bg-green-700"></div>
+              </div>
+            </div>
+            <div className="   flex flex-col justify-center items-center min-h-screen h-full  bg-slate-50 shadow-sm">
               {surah?.map((item, i) => {
                 return <Card key={i} no={i + 1} PropsCard={item} />;
               })}

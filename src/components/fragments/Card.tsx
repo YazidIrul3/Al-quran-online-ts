@@ -39,10 +39,8 @@ const Card = ({ PropsCard, no }: Props) => {
         <div className="col-span-1">
           <h1 className="font-bold text-2xl text-slate-900">{no}</h1>
         </div>
-        <div className="flex flex-col mr-3  ">
-          <h1 className="font-bold text">
-            {PropsCard.name.transliteration.id}
-          </h1>
+        <div className="flex flex-col mr-3  text-slate-900 ">
+          <h1 className="font-bold">{PropsCard.name.transliteration.id}</h1>
           <div className=" flex items-center text-xs gap-2">
             <h1 className="font-thin flex text-wrap text-justify">
               {PropsCard.name.translation.id}
@@ -54,7 +52,7 @@ const Card = ({ PropsCard, no }: Props) => {
       </div>
 
       <div className=" ml-4 w-1/3">
-        <h1 className="font-thin 2xl:text-3xl xl:text-3xl lg:text-3xl md:text-3xl text-xl">
+        <h1 className="text-slate-900 2xl:text-3xl xl:text-3xl lg:text-3xl md:text-3xl text-xl">
           {PropsCard.name.short}
         </h1>
       </div>
