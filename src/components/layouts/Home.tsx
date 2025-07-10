@@ -1,6 +1,6 @@
 import Card from "@/components/fragments/Card";
 import LinkHeader from "../elements/LinkHeader";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useGetQuran } from "@/feutures/quran/getQuran";
 import Spinner from "../fragments/Spinner";
 import LastReadFragment from "../fragments/LastReadFragment";
