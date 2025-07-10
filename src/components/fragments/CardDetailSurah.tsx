@@ -186,7 +186,7 @@ const CardDetailSurah: React.FC<Props> = ({ data, surah }: Props) => {
         </div>
         <div className=" flex flex-col justify-end items-end gap-2">
           <h1
-            className=" text-3xl font-bold  text-right"
+            className=" text-3xl font-bold text-red-900 text-right"
             dangerouslySetInnerHTML={{ __html: data.text?.arab }}
           ></h1>
           <p
