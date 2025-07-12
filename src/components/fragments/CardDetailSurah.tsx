@@ -1,4 +1,5 @@
 import { useActiveAudio } from "@/hooks/useActiveAudio";
+import { useBookmark } from "@/hooks/useBookmak";
 import { useLastRead } from "@/hooks/useLastRead";
 import { useRef, useState } from "react";
 
@@ -77,6 +78,13 @@ const CardDetailSurah: React.FC<Props> = ({ data, surah }: Props) => {
   const { currentAudio, setCurrentAudio } = useActiveAudio();
   const [showIconName, setIconName] = useState<boolean>(false);
   const { setLastRead } = useLastRead();
+  const { surah: bookMarkData, addToBookmark } = useBookmark();
+
+  const bookMarkFilter = bookMarkData.filter(
+    (item) =>
+      item.surah == surah?.name?.transliteration?.id &&
+      item?.ayat == data?.number?.inSurah
+  );
 
   const handlePlayAudio = (audioEl: HTMLAudioElement) => {
     setCurrentAudio(audioEl);
@@ -94,15 +102,43 @@ const CardDetailSurah: React.FC<Props> = ({ data, surah }: Props) => {
     <div className="flex flex-col gap-4 p-4">
       <div className=" text-green-700 font-bold bg-green-200 rounded-full px-3 py-1 w-fit h-fit">
         <h1>{data?.number?.inSurah}</h1>
-
-        <audio
-          onEnded={() => setIsPlaying(false)}
-          ref={audiORef}
-          src={data?.audio?.primary}
-        />
       </div>
       <div className="flex flex-col gap-5">
         <div className=" flex flex-row items-center justify-end gap-2">
+          <button
+            type="button"
+            onClick={() =>
+              addToBookmark({
+                arti: data?.translation?.id,
+                ayat: data?.number?.inSurah,
+                inSurah: data?.number?.inSurah,
+                lafadz: data?.text?.arab,
+                surah: surah?.name?.transliteration?.id,
+              })
+            }
+            className=" w-[20px] h-[20px]"
+          >
+            {bookMarkFilter?.length > 0 ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                className="bi bi-bookmark-fill"
+                viewBox="0 0 16 16"
+              >
+                <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2" />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="currentColor"
+                className="bi bi-bookmark"
+                viewBox="0 0 16 16"
+              >
+                <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
+              </svg>
+            )}
+          </button>
+
           {!isPlaying ? (
             <button
               type="button"

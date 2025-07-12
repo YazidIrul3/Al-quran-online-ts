@@ -90,7 +90,7 @@ const DetailSurah: React.FC<Props> = ({ no }) => {
         <Spinner />
       ) : (
         <div className="min-w-lg max-w-lg w-lg flex flex-col mx-auto py-5 bg-slate-50 shadow-lg ">
-          <div className=" flex flex-row items-center gap-2 text-slate-600 font-bold text-lg">
+          <div className=" flex flex-row items-center gap-2 px-2 text-slate-600 font-bold text-lg">
             <Link href={"/"} className=" w-[25px] h-[25px]">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -5,6 +5,8 @@ import { useGetQuran } from "@/feutures/quran/getQuran";
 import Spinner from "../fragments/Spinner";
 import LastReadFragment from "../fragments/LastReadFragment";
 import Image from "next/image";
+import { useBookmark } from "@/hooks/useBookmak";
+import CardColection from "../fragments/CardColection";
 
 type Props = {
   data: Surah[];
@@ -39,6 +41,8 @@ interface Surah {
 const HomeLayout = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const { data, isLoading } = useGetQuran<Props>("surah");
+  const [isHome, setIsHome] = useState<boolean>(true);
+  const { surah: bookmarkData } = useBookmark();
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
@@ -96,17 +100,41 @@ const HomeLayout = () => {
           <div className=" px-3  bg-slate-50 shadow-sm max-w-lg  w-lg mx-auto min-w-lg relative">
             <div className=" flex flex-row items-center mb-4 gap-3">
               <div className=" flex flex-col">
-                <button type="button" className=" text-[15px]">
+                <button
+                  type="button"
+                  onClick={() => setIsHome(true)}
+                  className=" text-[15px]"
+                >
                   Surah
                 </button>
-                <div className=" h-1 bg-green-700"></div>
+                {isHome && <div className=" h-1 bg-green-700"></div>}
+              </div>
+
+              <div className=" flex flex-col">
+                <button
+                  type="button"
+                  onClick={() => setIsHome(false)}
+                  className=" text-[15px]"
+                >
+                  Bookmark
+                </button>
+                {!isHome && <div className=" h-1 bg-green-700"></div>}
               </div>
             </div>
-            <div className="   flex flex-col justify-center items-center min-h-screen h-full  bg-slate-50 shadow-sm">
-              {surah?.map((item, i) => {
-                return <Card key={i} no={i + 1} PropsCard={item} />;
-              })}
-            </div>
+
+            {isHome ? (
+              <div className="   flex flex-col justify-center items-center min-h-screen h-full gap-3  bg-slate-50 shadow-sm">
+                {surah?.map((item, i) => {
+                  return <Card key={i} no={i + 1} PropsCard={item} />;
+                })}
+              </div>
+            ) : (
+              <div className="  gap-3  flex flex-col  min-h-screen h-full  bg-slate-50 shadow-sm">
+                {bookmarkData?.map((item, i) => {
+                  return <CardColection key={i} index={i} data={item} />;
+                })}
+              </div>
+            )}
 
             <LastReadFragment />
           </div>
