@@ -11,7 +11,7 @@ interface Item {
   ayat: number;
   lafadz: string;
   surah: string | undefined;
-  inQuran: number;
+  inQuran: number | undefined;
   inSurah: number;
   arti: string;
 }

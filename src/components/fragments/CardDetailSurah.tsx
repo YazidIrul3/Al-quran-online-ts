@@ -112,7 +112,7 @@ const CardDetailSurah: React.FC<Props> = ({ data, surah }: Props) => {
                 arti: data?.translation?.id,
                 ayat: data?.number?.inSurah,
                 inSurah: data?.number?.inSurah,
-                inQuran: surah?.number!,
+                inQuran: surah?.number,
                 lafadz: data?.text?.arab,
                 surah: surah?.name?.transliteration?.id,
               })
