@@ -9,6 +9,7 @@ type LastRead = {
 interface Surah {
   audio: string;
   inSurah: number;
+  inQuran: number;
   juz: number;
   nameArab: string;
   surahName: string;
@@ -22,6 +23,7 @@ export const useLastRead = create<LastRead>()(
       surah: {
         audio: "",
         inSurah: 0,
+        inQuran: 0,
         juz: 0,
         nameArab: "",
         surahName: "",

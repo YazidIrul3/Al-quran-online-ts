@@ -47,7 +47,7 @@ const LastReadFragment = () => {
           </div>
         </div>
 
-        <Link href={`/surah/${lastRead?.inSurah}`} className=" hover:underline">
+        <Link href={`/surah/${lastRead?.inQuran}`} className=" hover:underline">
           Baca
         </Link>
       </div>
